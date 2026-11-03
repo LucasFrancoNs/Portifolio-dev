@@ -10,7 +10,7 @@ class ChipHabilidade extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       label: Text(texto),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.green,
       labelStyle: const TextStyle(
         color: Colors.indigo,
         fontWeight: FontWeight.w600,
