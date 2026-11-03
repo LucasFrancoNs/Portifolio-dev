@@ -10,7 +10,7 @@ class DevFolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DevFolio',
+      title: 'Portifólio DEV Thiago e Lucas',
       debugShowCheckedModeBanner: false,
       // Tema global (ThemeData) - ajustado na semana 3
       theme: ThemeData(
