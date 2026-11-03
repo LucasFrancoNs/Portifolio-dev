@@ -17,14 +17,14 @@ class SeloDestaque extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.star, size: 12, color: Colors.black87),
+          const Icon(Icons.star, size: 12, color: Colors.black86),
           const SizedBox(width: 3),
           Text(
             texto,
             style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.black86,
             ),
           ),
         ],
