@@ -23,11 +23,3 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 - **Deploy:** Vercel (ou GitHub Pages / Netlify)
 
 ---
-
-## 🚀 Como rodar o projeto localmente
-
-Siga os passos abaixo para testar o projeto na sua máquina:
-
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
