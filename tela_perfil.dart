@@ -6,7 +6,7 @@ class TelaPerfil extends StatelessWidget {
   const TelaPerfil({super.key});
 
   // TROQUE pelos seus dados
-  static const String nome = 'Thiago e Lucas';
+  static const String nome = 'Thiago Moraes e Lucas Novaes';
   static const String cargo = 'Desenvolvedores Flutter Júnior';
   static const String email = 'Thiagosilvamoraes@yahoo.com.br - ou - Lucasnovaes479@gmail.com';
   static const String cidade = 'Ribeirão Pires, SP';
