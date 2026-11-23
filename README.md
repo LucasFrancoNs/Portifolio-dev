@@ -10,7 +10,7 @@ O app tem duas abas, e cada uma é um perfil completo com o próprio tema:
 | Aba      | Perfil | Cor do tema |
 | -------- | ------ | ----------- |
 | Perfil 1 | Lucas  | Verde       |
-| Perfil 2 | Thiago | Vermelho    |
+| Perfil 2 | Thiago | Vermelho    | 
 
 Ao trocar de aba, o app inteiro muda de cor: barra de navegação, cabeçalho,
 botões, cards e gradientes. Cada perfil tem cabeçalho com avatar e ações
