@@ -18,7 +18,7 @@ Um portfólio pessoal minimalista, responsivo e rápido desenvolvido para aprese
 
 Este projeto foi construído utilizando as seguintes ferramentas:
 
-- **Front-end:** HTML5, CSS3, JavaScript (ou React / Next.js / Vue)
+- **Front-end:** HTML5, CSS3, JavaScript, DART (ou React / Next.js / Vue)
 - **Estilização:** Tailwind CSS (ou CSS Modules / Styled Components)
 - **Deploy:** Vercel (ou GitHub Pages / Netlify)
 
