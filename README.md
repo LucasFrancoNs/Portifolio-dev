@@ -15,7 +15,7 @@ O aplicativo conta com navegação por abas onde cada desenvolvedor possui uma i
 | Aba | Desenvolvedor | Foco Principal | Cor Tema | GitHub |
 | :--- | :--- | :--- | :---: | :--- |
 | **Perfil 1** | **Lucas Novaes** | Flutter, Dart & Back-end (PHP) | 🟢 Verde (`#16A34A`) | [@LucasFrancoNs](https://github.com/LucasFrancoNs) |
-| **Perfil 2** | **Thiago Silva Moraes** | Flutter, Dart & Front-end (JS/Web) | 🔴 Vermelho (`#DC2626`) | [@Thiago-sm11](https://github.com/Thiago-sm11) |
+| **Perfil 2** | **Thiago Silva Moraes** | Flutter, Dart & Front-end (JS/Web) | 🔴 Roxo (`#DC2626`) | [@Thiago-sm11](https://github.com/Thiago-sm11) |
 
 ---
 
