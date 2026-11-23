@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 
-import 'package:portifolio_dev/core/theme/app_colors.dart';
 import 'package:portifolio_dev/core/theme/app_dimens.dart';
 import 'package:portifolio_dev/core/theme/brand_gradients.dart';
 
-/// Temas Material 3 da aplicação (claro e escuro).
+/// Temas Material 3 da aplicação, gerados a partir da cor semente do perfil.
 abstract final class AppTheme {
-  static final ThemeData light = _build(Brightness.light);
-  static final ThemeData dark = _build(Brightness.dark);
+  static final Map<(Color, Brightness), ThemeData> _cache =
+      <(Color, Brightness), ThemeData>{};
 
-  static ThemeData _build(Brightness brightness) {
+  /// Tema para a [seed] e o [brightness] informados. O resultado é guardado
+  /// em cache, então alternar entre perfis não reconstrói o que já foi criado.
+  static ThemeData resolve(Color seed, Brightness brightness) {
+    return _cache.putIfAbsent(
+      (seed, brightness),
+      () => _build(seed, brightness),
+    );
+  }
+
+  static ThemeData _build(Color seed, Brightness brightness) {
     final scheme = ColorScheme.fromSeed(
-      seedColor: AppColors.seed,
+      seedColor: seed,
       brightness: brightness,
     );
 
@@ -104,7 +112,7 @@ abstract final class AppTheme {
         ),
       ),
       extensions: <ThemeExtension<dynamic>>[
-        BrandGradients.forBrightness(brightness),
+        BrandGradients.fromSeed(seed, brightness),
       ],
     );
   }

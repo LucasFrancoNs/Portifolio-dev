@@ -3,73 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:portifolio_dev/core/responsive/breakpoints.dart';
 import 'package:portifolio_dev/core/theme/app_dimens.dart';
 import 'package:portifolio_dev/core/theme/theme_context.dart';
-import 'package:portifolio_dev/data/portfolio_data.dart';
 import 'package:portifolio_dev/features/profile/profile_screen.dart';
-import 'package:portifolio_dev/features/projects/projects_screen.dart';
+import 'package:portifolio_dev/models/portfolio_profile.dart';
 import 'package:portifolio_dev/shared/widgets/brand_mark.dart';
 
-class _ShellDestination {
-  const _ShellDestination({
-    required this.label,
-    required this.icon,
-    required this.selectedIcon,
+/// Estrutura de navegação adaptativa: barra inferior em telas estreitas e
+/// navegação lateral (rail) em telas largas. Cada aba é um perfil.
+class AppShell extends StatelessWidget {
+  const AppShell({
+    required this.profiles,
+    required this.selectedIndex,
+    required this.onSelected,
+    required this.onToggleTheme,
+    super.key,
   });
 
-  final String label;
-  final IconData icon;
-  final IconData selectedIcon;
-}
-
-/// Estrutura de navegação adaptativa: barra inferior em telas estreitas e
-/// navegação lateral (rail) em telas largas.
-class AppShell extends StatefulWidget {
-  const AppShell({required this.onToggleTheme, super.key});
+  final List<PortfolioProfile> profiles;
+  final int selectedIndex;
+  final ValueChanged<int> onSelected;
 
   /// Recebe o brilho atual do tema e alterna para o oposto.
   final ValueChanged<Brightness> onToggleTheme;
-
-  @override
-  State<AppShell> createState() => _AppShellState();
-}
-
-class _AppShellState extends State<AppShell> {
-  static const List<_ShellDestination> _destinations = <_ShellDestination>[
-    _ShellDestination(
-      label: 'Perfil',
-      icon: Icons.person_outline_rounded,
-      selectedIcon: Icons.person_rounded,
-    ),
-    _ShellDestination(
-      label: 'Projetos',
-      icon: Icons.grid_view_outlined,
-      selectedIcon: Icons.grid_view_rounded,
-    ),
-  ];
-
-  static const List<Widget> _pages = <Widget>[
-    ProfileScreen(),
-    ProjectsScreen(),
-  ];
-
-  int _index = 0;
-
-  void _select(int index) => setState(() => _index = index);
 
   @override
   Widget build(BuildContext context) {
     final isWide = MediaQuery.sizeOf(context).width >= Breakpoints.expanded;
     final brightness = context.theme.brightness;
     final isDark = brightness == Brightness.dark;
+    final active = profiles[selectedIndex].developer;
 
     final appBar = AppBar(
       titleSpacing: AppSpacing.md,
       title: Row(
         children: [
-          BrandMark(initials: PortfolioData.profile.initials, size: 36),
+          BrandMark(initials: active.initials, size: 36),
           const SizedBox(width: AppSpacing.md - 4),
           Flexible(
             child: Text(
-              PortfolioData.profile.name,
+              active.name,
               overflow: TextOverflow.ellipsis,
               style: context.text.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
@@ -81,7 +52,7 @@ class _AppShellState extends State<AppShell> {
       actions: [
         IconButton(
           tooltip: isDark ? 'Usar tema claro' : 'Usar tema escuro',
-          onPressed: () => widget.onToggleTheme(brightness),
+          onPressed: () => onToggleTheme(brightness),
           icon: Icon(
             isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
           ),
@@ -90,7 +61,17 @@ class _AppShellState extends State<AppShell> {
       ],
     );
 
-    final body = IndexedStack(index: _index, children: _pages);
+    // As duas páginas ficam vivas no IndexedStack para preservar a rolagem.
+    final body = IndexedStack(
+      index: selectedIndex,
+      children: [
+        for (final profile in profiles)
+          ProfileScreen(
+            key: ValueKey<String>(profile.developer.githubUser),
+            profile: profile,
+          ),
+      ],
+    );
 
     if (isWide) {
       return Scaffold(
@@ -99,14 +80,14 @@ class _AppShellState extends State<AppShell> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             NavigationRail(
-              selectedIndex: _index,
-              onDestinationSelected: _select,
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onSelected,
               destinations: [
-                for (final d in _destinations)
+                for (final profile in profiles)
                   NavigationRailDestination(
-                    icon: Icon(d.icon),
-                    selectedIcon: Icon(d.selectedIcon),
-                    label: Text(d.label),
+                    icon: const Icon(Icons.person_outline_rounded),
+                    selectedIcon: const Icon(Icons.person_rounded),
+                    label: Text(profile.tabLabel),
                   ),
               ],
             ),
@@ -121,14 +102,14 @@ class _AppShellState extends State<AppShell> {
       appBar: appBar,
       body: body,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: _select,
+        selectedIndex: selectedIndex,
+        onDestinationSelected: onSelected,
         destinations: [
-          for (final d in _destinations)
+          for (final profile in profiles)
             NavigationDestination(
-              icon: Icon(d.icon),
-              selectedIcon: Icon(d.selectedIcon),
-              label: d.label,
+              icon: const Icon(Icons.person_outline_rounded),
+              selectedIcon: const Icon(Icons.person_rounded),
+              label: profile.tabLabel,
             ),
         ],
       ),

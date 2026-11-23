@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:portifolio_dev/core/theme/app_colors.dart';
+import 'package:portifolio_dev/core/theme/theme_context.dart';
 
 /// Avatar circular com anel translúcido e iniciais.
 ///
@@ -40,7 +40,7 @@ class GradientAvatar extends StatelessWidget {
                 style: TextStyle(
                   fontSize: size * 0.34,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.brand,
+                  color: context.gradients.onHero,
                 ),
               ),
             ),

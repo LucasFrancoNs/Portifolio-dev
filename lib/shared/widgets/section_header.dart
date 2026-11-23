@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:portifolio_dev/core/theme/app_colors.dart';
 import 'package:portifolio_dev/core/theme/app_dimens.dart';
 import 'package:portifolio_dev/core/theme/theme_context.dart';
 
@@ -30,7 +29,7 @@ class SectionHeader extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [context.colors.primary, AppColors.cyan],
+                    colors: [context.colors.primary, context.colors.tertiary],
                   ),
                 ),
               ),

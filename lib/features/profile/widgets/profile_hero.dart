@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:portifolio_dev/core/theme/app_colors.dart';
 import 'package:portifolio_dev/core/theme/app_dimens.dart';
 import 'package:portifolio_dev/core/theme/theme_context.dart';
 import 'package:portifolio_dev/core/utils/link_opener.dart';
@@ -34,10 +33,14 @@ class ProfileHero extends StatelessWidget {
             child: Stack(
               children: [
                 const Positioned.fill(child: GridPattern()),
-                const Positioned(
+                Positioned(
                   top: -70,
                   right: -50,
-                  child: _Glow(size: 240, color: AppColors.cyan, alpha: 0.30),
+                  child: _Glow(
+                    size: 240,
+                    color: context.colors.tertiary,
+                    alpha: 0.30,
+                  ),
                 ),
                 const Positioned(
                   bottom: -90,
@@ -110,7 +113,7 @@ class _HeroDetails extends StatelessWidget {
             FilledButton.icon(
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.white,
-                foregroundColor: AppColors.brand,
+                foregroundColor: context.gradients.onHero,
               ),
               onPressed: () => LinkOpener.open(
                 context,

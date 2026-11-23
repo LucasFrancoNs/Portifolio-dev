@@ -1,13 +1,21 @@
 # Portfólio Dev
 
-Portfólio pessoal de desenvolvedor, feito em **Flutter** e **Dart**, com
-Material 3, tema escuro/claro e layout adaptativo (celular, tablet e desktop).
+Portfólio de desenvolvedor feito em **Flutter** e **Dart**, com Material 3,
+tema escuro/claro e layout adaptativo (celular, tablet e desktop).
 
-## Telas
+## Abas
 
-- **Perfil**: cabeçalho com avatar e ações (e-mail e GitHub), sobre,
-  habilidades agrupadas por categoria e contato.
-- **Projetos**: métricas em cards com selos de destaque e lista de projetos.
+O app tem duas abas, e cada uma é um perfil completo com o próprio tema:
+
+| Aba      | Perfil | Cor do tema |
+| -------- | ------ | ----------- |
+| Perfil 1 | Lucas  | Verde       |
+| Perfil 2 | Thiago | Vermelho    |
+
+Ao trocar de aba, o app inteiro muda de cor: barra de navegação, cabeçalho,
+botões, cards e gradientes. Cada perfil tem cabeçalho com avatar e ações
+(e-mail e GitHub), sobre, habilidades por categoria, métricas, projetos e
+contato.
 
 ## Como rodar
 
@@ -30,30 +38,31 @@ flutter test
 
 ## Como personalizar
 
-Todo o conteúdo fica em um único arquivo: [`lib/data/portfolio_data.dart`](lib/data/portfolio_data.dart).
-Edite nome, cargo, bio, contato, habilidades, métricas e projetos; a interface
-se adapta sozinha. Para adicionar um projeto, basta incluir um item em
-`PortfolioData.projects`.
+Todo o conteúdo fica em [`lib/data/portfolio_data.dart`](lib/data/portfolio_data.dart).
+Cada `PortfolioProfile` define nome, cargo, bio, contato, habilidades,
+métricas, projetos e a cor do tema (`seedColor`).
 
-As cores de marca ficam em `lib/core/theme/app_colors.dart`.
+- **Trocar a cor de um perfil**: altere o `seedColor`. Os gradientes e todo o
+  tema são derivados dela.
+- **Adicionar uma aba**: crie outro `PortfolioProfile` e inclua em
+  `PortfolioData.profiles`. A navegação e o tema se ajustam sozinhos.
 
 ## Estrutura
 
 ```
 lib/
 ├── main.dart                  # ponto de entrada
-├── app.dart                   # MaterialApp, temas e alternância claro/escuro
+├── app.dart                   # MaterialApp, aba ativa e modo claro/escuro
 ├── core/
 │   ├── responsive/            # pontos de quebra do layout
-│   ├── theme/                 # cores, espaçamentos, tema Material 3, gradientes
+│   ├── theme/                 # tema Material 3 por cor semente, gradientes
 │   └── utils/                 # abrir links e copiar texto
 ├── data/                      # conteúdo do portfólio (fonte única)
-├── models/                    # modelos imutáveis (perfil, skill, métrica, projeto)
+├── models/                    # modelos imutáveis (perfil, skill, métrica...)
 ├── shared/widgets/            # componentes reutilizáveis
 └── features/
     ├── shell/                 # navegação adaptativa (barra inferior / rail)
-    ├── profile/               # tela de perfil e seus widgets
-    └── projects/              # tela de projetos e seus widgets
+    └── profile/               # página de perfil e seus widgets
 test/
 └── widget_test.dart           # testes de widget
 ```
@@ -61,11 +70,11 @@ test/
 ## Decisões de arquitetura
 
 - **Conteúdo separado da interface**: modelos imutáveis e dados em um só lugar.
+- **Tema por perfil**: `AppTheme.resolve(seed, brightness)` gera o tema a
+  partir da cor do perfil, com cache. Gradientes vão em uma `ThemeExtension`.
 - **Organização por feature**, com widgets compartilhados em `shared/`.
-- **Tema centralizado** (`ThemeData`, `ThemeExtension` para gradientes) e escala
-  de espaçamentos/raios, sem números mágicos espalhados.
 - **Layout adaptativo**: `NavigationBar` em telas estreitas e `NavigationRail`
   em telas largas; grades que calculam colunas pela largura disponível.
 - **Lints rigorosos** (`strict-casts`, `strict-inference`, imports de pacote).
-- **Sem gerenciador de estado externo**: o único estado (tema e aba atual) é
-  local, então `setState` basta.
+- **Sem gerenciador de estado externo**: o único estado (aba e tema) é local,
+  então `setState` basta.
